@@ -20,8 +20,14 @@ class Vais < Formula
   end
 
   def install
-    bin.install "vais/vaisc"
-    (share/"vais/std").install Dir["vais/std/*"]
+    # tar extracts to vais/ directory, Homebrew may or may not cd into it
+    if File.exist?("vaisc")
+      bin.install "vaisc"
+      (share/"vais/std").install Dir["std/*"]
+    elsif File.exist?("vais/vaisc")
+      bin.install "vais/vaisc"
+      (share/"vais/std").install Dir["vais/std/*"]
+    end
   end
 
   def caveats
